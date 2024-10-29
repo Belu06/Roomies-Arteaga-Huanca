@@ -1,11 +1,25 @@
 "use client"
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Label } from "@/components/ui/label"
 import { Input } from "@/components/ui/input"
 import { CheckCircle, XCircle, Eye, EyeOff } from "lucide-react"
+
+// Simulación de una función para obtener datos del usuario
+const obtenerDatosUsuario = () => {
+  // En una implementación real, esto sería una llamada a tu API
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve({
+        username: "usuario_ejemplo",
+        email: "usuario@ejemplo.com",
+        phone: "123-456-7890"
+      })
+    }, 1000)
+  })
+}
 
 // Simulación de una función de verificación
 const verificarDatos = (datos: {
@@ -13,40 +27,40 @@ const verificarDatos = (datos: {
   email: string,
   phone: string
 }) => {
-  // En una implementación real, esto se conectaría a un backend para verificar los datos
   return new Promise<boolean>((resolve) => {
     setTimeout(() => {
-      // Simulamos que los datos son válidos si el correo contiene '@' y el teléfono tiene al menos 8 dígitos
       const esValido = datos.email.includes('@') && datos.phone.replace(/\D/g, '').length >= 8
       resolve(esValido)
-    }, 1000) // Simulamos un retraso de red de 1 segundo
+    }, 1000)
   })
 }
 
 export default function DatosPersonales() {
   const [datos, setDatos] = useState({
-    username: "juanperez",
-    password: "contraseña123",
-    email: "juan@example.com",
-    phone: "123-456-7890"
+    username: "",
+    email: "",
+    phone: ""
   })
   const [verificado, setVerificado] = useState<boolean | null>(null)
-  const [cargando, setCargando] = useState(false)
-  const [mostrarContraseña, setMostrarContraseña] = useState(false)
+  const [cargando, setCargando] = useState(true)
+  const [verificando, setVerificando] = useState(false)
+
+  useEffect(() => {
+    obtenerDatosUsuario().then((datosUsuario: any) => {
+      setDatos(datosUsuario)
+      setCargando(false)
+    })
+  }, [])
 
   const handleVerificar = async () => {
-    setCargando(true)
-    const esValido = await verificarDatos({
-      username: datos.username,
-      email: datos.email,
-      phone: datos.phone
-    })
+    setVerificando(true)
+    const esValido = await verificarDatos(datos)
     setVerificado(esValido)
-    setCargando(false)
+    setVerificando(false)
   }
 
-  const toggleMostrarContraseña = () => {
-    setMostrarContraseña(!mostrarContraseña)
+  if (cargando) {
+    return <div>Cargando datos...</div>
   }
 
   return (
@@ -62,28 +76,6 @@ export default function DatosPersonales() {
             <Input id="username" value={datos.username} readOnly />
           </div>
           <div className="flex flex-col space-y-1.5">
-            <Label htmlFor="password">Contraseña</Label>
-            <div className="relative">
-              <Input
-                id="password"
-                type={mostrarContraseña ? "text" : "password"}
-                value={datos.password}
-                readOnly
-              />
-              <Button
-                variant="ghost"
-                size="icon"
-                className="absolute right-0 top-0"
-                onClick={toggleMostrarContraseña}
-              >
-                {mostrarContraseña ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
-                <span className="sr-only">
-                  {mostrarContraseña ? "Ocultar contraseña" : "Mostrar contraseña"}
-                </span>
-              </Button>
-            </div>
-          </div>
-          <div className="flex flex-col space-y-1.5">
             <Label htmlFor="email">Correo Electrónico</Label>
             <Input id="email" type="email" value={datos.email} readOnly />
           </div>
@@ -94,10 +86,10 @@ export default function DatosPersonales() {
         </div>
       </CardContent>
       <CardFooter className="flex flex-col items-center">
-        <Button onClick={handleVerificar} disabled={cargando}>
-          {cargando ? "Verificando..." : "Verificar Datos"}
+        <Button onClick={handleVerificar} disabled={verificando}>
+          {verificando ? "Verificando..." : "Verificar Datos"}
         </Button>
-        {verificado !== null && !cargando && (
+        {verificado !== null && !verificando && (
           <div className="mt-2 flex items-center">
             {verificado ? (
               <>
