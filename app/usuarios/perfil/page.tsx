@@ -1,10 +1,10 @@
 "use client"
 
 import { useState } from 'react'
-import { Button } from "@/components/ui/button"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
+import { Button } from "@/componentes/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/componentes/ui/card"
+import { Label } from "@/componentes/ui/label"
+import { Input } from "@/componentes/ui/input"
 import { CheckCircle, XCircle, Eye, EyeOff } from "lucide-react"
 
 // Simulación de una función de verificación

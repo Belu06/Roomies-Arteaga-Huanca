@@ -2,11 +2,11 @@
 
 import { useState } from "react"
 import React from 'react'
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
-import { Alert, AlertDescription } from "@/components/ui/alert"
+import { Button } from "@/componentes/ui/button"
+import { Input } from "@/componentes/ui/input"
+import { Label } from "@/componentes/ui/label"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/componentes/ui/card"
+import { Alert, AlertDescription } from "@/componentes/ui/alert"
 
 export default function Page() {
  const [nombre, setNombre] = useState("")
