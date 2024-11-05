@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 "use client";
 
 import { useState } from "react";
@@ -57,6 +58,59 @@ export default function DatosPersonales() {
     setMostrarContraseña(!mostrarContraseña);
   };
 
+=======
+"use client"
+
+import { useState } from 'react'
+import { Button } from "@/componentes/ui/button"
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/componentes/ui/card"
+import { Label } from "@/componentes/ui/label"
+import { Input } from "@/componentes/ui/input"
+import { CheckCircle, XCircle, Eye, EyeOff } from "lucide-react"
+
+// Simulación de una función de verificación
+const verificarDatos = (datos: {
+  username: string,
+  email: string,
+  phone: string
+}) => {
+  // En una implementación real, esto se conectaría a un backend para verificar los datos
+  return new Promise<boolean>((resolve) => {
+    setTimeout(() => {
+      // Simulamos que los datos son válidos si el correo contiene '@' y el teléfono tiene al menos 8 dígitos
+      const esValido = datos.email.includes('@') && datos.phone.replace(/\D/g, '').length >= 8
+      resolve(esValido)
+    }, 1000) // Simulamos un retraso de red de 1 segundo
+  })
+}
+
+export default function DatosPersonales() {
+  const [datos, setDatos] = useState({
+    username: "juanperez",
+    password: "contraseña123",
+    email: "juan@example.com",
+    phone: "123-456-7890"
+  })
+  const [verificado, setVerificado] = useState<boolean | null>(null)
+  const [cargando, setCargando] = useState(false)
+  const [mostrarContraseña, setMostrarContraseña] = useState(false)
+
+  const handleVerificar = async () => {
+    setCargando(true)
+    const esValido = await verificarDatos({
+      username: datos.username,
+      email: datos.email,
+      phone: datos.phone
+    })
+    setVerificado(esValido)
+    setCargando(false)
+  }
+
+  const toggleMostrarContraseña = () => {
+    setMostrarContraseña(!mostrarContraseña)
+  }
+
+>>>>>>> 6175b978474f0793c5ccb5c1f8619462d2370b30
   return (
     <Card className="w-[350px]">
       <CardHeader>
@@ -84,15 +138,9 @@ export default function DatosPersonales() {
                 className="absolute right-0 top-0"
                 onClick={toggleMostrarContraseña}
               >
-                {mostrarContraseña ? (
-                  <EyeOff className="h-4 w-4" />
-                ) : (
-                  <Eye className="h-4 w-4" />
-                )}
+                {mostrarContraseña ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
                 <span className="sr-only">
-                  {mostrarContraseña
-                    ? "Ocultar contraseña"
-                    : "Mostrar contraseña"}
+                  {mostrarContraseña ? "Ocultar contraseña" : "Mostrar contraseña"}
                 </span>
               </Button>
             </div>
@@ -128,5 +176,9 @@ export default function DatosPersonales() {
         )}
       </CardFooter>
     </Card>
+<<<<<<< HEAD
   );
+=======
+  )
+>>>>>>> 6175b978474f0793c5ccb5c1f8619462d2370b30
 }
