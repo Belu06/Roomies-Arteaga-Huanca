@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "init": "npx prisma migrate dev --name init"
   },
   "dependencies": {
     "@prisma/client": "5.22.0",
@@ -31,7 +32,7 @@
     "eslint": "^8",
     "eslint-config-next": "14.2.14",
     "postcss": "^8",
-    "prisma": "^5.22.0",
+    "prisma": "5.22.0",
     "tailwindcss": "^3.4.1",
     "typescript": "^5"
   },

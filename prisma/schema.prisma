@@ -11,19 +11,29 @@ datasource db {
 }
 
 model Usuarios {
-  id               String   @id @default(uuid())
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-  email            String   @unique
-  nombreCompleto   String
-  numeroDeTelefono String
+  id                 String                           @id @default(uuid())
+  createdAt          DateTime                         @default(now())
+  updatedAt          DateTime                         @updatedAt
+  email              String                           @unique
+  nombreCompleto     String
+  numeroDeTelefono   String
+  viviendasFavoritas ViviendasFavoritasDeLosUsarios[]
 }
 
 model Viviendas {
-  id               String   @id @default(uuid())
-  createdAt        DateTime @default(now())
-  updatedAt        DateTime @updatedAt
-  direccion        String   @unique
-  locatario        String // quien da en alquiler una vivienda
-  precioDeAlquiler Int
+  id                  String                           @id @default(uuid())
+  createdAt           DateTime                         @default(now())
+  updatedAt           DateTime                         @updatedAt
+  direccion           String                           @unique
+  locatario           String // quien da en alquiler una vivienda
+  precioDeAlquiler    Int
+  usuariosInteresados ViviendasFavoritasDeLosUsarios[]
+}
+
+model ViviendasFavoritasDeLosUsarios {
+  id                String    @id @default(uuid())
+  viviendaId        String
+  usuarioId         String
+  usuario           Usuarios  @relation(fields: [usuarioId], references: [id])
+  viviendasFavorita Viviendas @relation(fields: [viviendaId], references: [id])
 }
