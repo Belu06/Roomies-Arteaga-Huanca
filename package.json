@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "next lint",
     "init": "npx prisma migrate dev --name init",
-    "init:viviendas":"node ./db/inserta_viviendas.mjs"
+    "init:viviendas":"node ./db/inserta_viviendas.mjs",
+    "init:usuario": "node ./db/insertar-usuarios.mjs"
   },
   "dependencies": {
     "@prisma/client": "5.22.0",

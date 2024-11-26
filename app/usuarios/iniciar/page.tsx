@@ -1,6 +1,4 @@
-"use client";
-
-import { useState } from "react";
+import db from "@/db";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -14,17 +12,11 @@ import {
 } from "@/components/ui/card";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 
-export default function LoginPage() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    // Aquí iría la lógica de autenticación
-    console.log("Iniciando sesión con:", email, password);
-  };
-
+export default async function LoginPage() {
+  const usuario = await db.usuarios.findFirst({
+    where: { email: "beluh065@gmail.com" },
+  });
+  const showPassword = false;
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-100">
       <Card className="w-full max-w-md">
@@ -35,15 +27,14 @@ export default function LoginPage() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <form className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="userName">Nombre de usuario</Label>
               <Input
                 id="email"
                 type="email"
                 placeholder="tu@ejemplo.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={usuario?.email}
                 required
               />
             </div>
@@ -53,8 +44,7 @@ export default function LoginPage() {
                 <Input
                   id="password"
                   type={showPassword ? "text" : "password"}
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
+                  value={usuario?.contrasennia}
                   required
                 />
                 <Button
@@ -62,7 +52,6 @@ export default function LoginPage() {
                   variant="ghost"
                   size="icon"
                   className="absolute right-0 top-0 h-full px-3 py-2 hover:bg-transparent"
-                  onClick={() => setShowPassword(!showPassword)}
                 >
                   {showPassword ? (
                     <EyeOffIcon className="h-4 w-4" />
@@ -86,11 +75,3 @@ export default function LoginPage() {
     </div>
   );
 }
-
-//import React from "react";
-
-//const iniciar = () => {
-// return <div></div>;
-//};
-
-//export default iniciar;
