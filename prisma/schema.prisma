@@ -26,7 +26,9 @@ model Viviendas {
   updatedAt           DateTime                         @updatedAt
   direccion           String                           @unique
   locatario           String // quien da en alquiler una vivienda
+  imagenes            String                           @default("https://picsum.photos/200/300")
   precioDeAlquiler    Int
+  descripcion         String
   usuariosInteresados ViviendasFavoritasDeLosUsarios[]
 }
 
