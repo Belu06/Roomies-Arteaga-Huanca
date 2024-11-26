@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "init": "npx prisma migrate dev --name init"
+    "init": "npx prisma migrate dev --name init",
+    "init:usuario": "node ./db/insertar-usuarios.mjs"
   },
   "dependencies": {
     "@prisma/client": "5.22.0",
