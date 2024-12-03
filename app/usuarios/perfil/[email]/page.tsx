@@ -12,9 +12,15 @@ import {
 } from "@/components/ui/card";
 import { EyeIcon, EyeOffIcon } from "lucide-react";
 
-export default async function LoginPage() {
+export default async function LoginPage({
+  params,
+}: {
+  params: Promise<{ email: string }>;
+}) {
+  const email = (await params).email;
+  console.log(email);
   const usuario = await db.usuarios.findFirst({
-    where: { email: "beluh065@gmail.com" },
+    where: { email: email },
   });
   const showPassword = false;
   return (
