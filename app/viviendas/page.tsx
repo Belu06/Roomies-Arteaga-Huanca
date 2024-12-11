@@ -1,5 +1,7 @@
 
 import db from "@/db"
+import vivendasList from './viviendas-list'
+import  SearchBar from
 
 export default async function ViviendasComponent() {
   const viviendas=await db.viviendas.findMany({})
