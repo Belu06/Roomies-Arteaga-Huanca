@@ -30,14 +30,9 @@
     "@shadcn/ui": "^0.0.4",
     "@types/bun": "latest",
     "@types/node": "^20",
-<<<<<<< HEAD
-    "@types/react": "^18.3.16",
-    "@types/react-dom": "^18.3.5",
-=======
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "autoprefixer": "^10.4.20",
->>>>>>> 6eacd52beecf26d5b4aceb9c85efa52c7c1c5333
     "eslint": "^8",
     "eslint-config-next": "14.2.14",
     "postcss": "^8.4.49",
