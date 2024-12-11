@@ -1,20 +1,15 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { Home } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-
 export default function HomePage() {
   const [showIcon, setShowIcon] = useState(true);
-
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowIcon(false);
     }, 2000); // El icono desaparecerá después de 2 segundos
-
     return () => clearTimeout(timer);
   }, []);
-
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-b from-blue-100 to-white">
       <AnimatePresence mode="wait">
