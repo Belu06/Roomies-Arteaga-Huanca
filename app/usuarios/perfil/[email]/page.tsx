@@ -1,4 +1,5 @@
 import db from "@/db";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -67,9 +68,12 @@ export default async function LoginPage({
                 </Button>
               </div>
             </div>
-            <Button type="submit" className="w-full">
+            <Link
+              href="/usuarios/iniciar-sesion"
+              className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out"
+            >
               Iniciar sesión
-            </Button>
+            </Link>
           </form>
         </CardContent>
         <CardFooter className="flex justify-center">

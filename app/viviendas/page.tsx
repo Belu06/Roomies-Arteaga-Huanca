@@ -1,10 +1,10 @@
-
-import db from "@/db"
-import vivendasList from './viviendas-list'
+import db from "@/db";
+import Link from "next/link";
+import vivendasList from "./viviendas-list";
 import { Search } from "lucide-react";
 
 export default async function ViviendasComponent() {
-  const viviendas=await db.viviendas.findMany({})
+  const viviendas = await db.viviendas.findMany({});
   return (
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
       <h1 className="text-3xl font-bold mb-6 text-gray-900">
@@ -29,7 +29,6 @@ export default async function ViviendasComponent() {
           </div>
         ))}
       </div>
-     
     </div>
   );
 }
