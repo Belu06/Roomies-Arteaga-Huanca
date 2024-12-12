@@ -1,6 +1,6 @@
-import Image from 'next/image'
-import { Card, CardContent, CardFooter } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
+import Image from "next/image";
+import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
 
 interface Vivienda {
   id: string
@@ -11,29 +11,34 @@ interface Vivienda {
 }
 
 interface ViviendaCardProps {
-  vivienda: Vivienda
-  searchTerm: string
+  vivienda: Vivienda;
+  searchTerm: string;
 }
 
 function highlightText(text: string, highlight: string) {
   if (!highlight.trim()) {
-    return <span>{text}</span>
+    return <span>{text}</span>;
   }
-  const parts = text.split(new RegExp(`(${highlight})`, 'gi'))
+  const parts = text.split(new RegExp(`(${highlight})`, "gi"));
   return (
     <span>
-      {parts.map((part, i) => 
+      {parts.map((part, i) =>
         part.toLowerCase() === highlight.toLowerCase() ? (
-          <span key={i} className="bg-yellow-200">{part}</span>
+          <span key={i} className="bg-yellow-200">
+            {part}
+          </span>
         ) : (
           part
         )
       )}
     </span>
-  )
+  );
 }
 
-export default function ViviendaCard({ vivienda, searchTerm }: ViviendaCardProps) {
+export default function ViviendaCard({
+  vivienda,
+  searchTerm,
+}: ViviendaCardProps) {
   return (
     <Card className="overflow-hidden">
       <div className="relative h-48">
@@ -62,6 +67,5 @@ export default function ViviendaCard({ vivienda, searchTerm }: ViviendaCardProps
         <Button className="w-full">Ver detalles</Button>
       </CardFooter>
     </Card>
-  )
+  );
 }
-

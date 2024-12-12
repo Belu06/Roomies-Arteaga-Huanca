@@ -1,20 +1,21 @@
-'use client'
+"use client";
 
-import { useState, useEffect } from 'react'
-import { Home } from 'lucide-react'
-import { motion, AnimatePresence } from 'framer-motion'
-import Image from 'next/image'
+import Link from "next/link";
+import { useState, useEffect } from "react";
+import { Home } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 
 export default function HomePage() {
-  const [showIcon, setShowIcon] = useState(true)
+  const [showIcon, setShowIcon] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      setShowIcon(false)
-    }, 2000) // El icono desaparecerá después de 2 segundos
+      setShowIcon(false);
+    }, 2000); // El icono desaparecerá después de 2 segundos
 
-    return () => clearTimeout(timer)
-  }, [])
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <>
@@ -52,11 +53,16 @@ export default function HomePage() {
                 transition={{ duration: 0.5 }}
                 className="text-center z-10 px-4 h-screen flex flex-col justify-center"
               >
-                <h1 className="text-4xl font-bold text-white mb-2 shadow-text">Bienvenido a nuestra página</h1>
-                <p className="text-xl text-white shadow-text">Estamos encantados de tenerte aquí. Encontrá tu hogar y posibles compañero/a de convivencia con Your Ideal Home</p>
+                <h1 className="text-4xl font-bold text-white mb-2 shadow-text">
+                  Bienvenido a nuestra página
+                </h1>
+                <p className="text-xl text-white shadow-text">
+                  Estamos encantados de tenerte aquí. Encontrá tu hogar y
+                  posibles compañero/a de convivencia con Your Ideal Home
+                </p>
               </motion.div>
 
-              <div className='flex align-top'>
+              <div className="flex align-top">
                 <motion.div
                   key="landingPage"
                   initial={{ opacity: 0, y: 20 }}
@@ -64,8 +70,15 @@ export default function HomePage() {
                   transition={{ duration: 0.5 }}
                   className="text-center z-10 px-4 w-1/2"
                 >
-                  <h1 className="text-4xl font-bold text-white mb-2 shadow-text">Testimonios</h1>
-                  <p className="text-xl text-white shadow-text">Hace un año encontré esta pagina, estaba buscando una vivienda y una compañera porque no estaba en condiciones de pagar el alquiler yo sola. Ahora que ya las encontré, me siento muy satisfecha con como me sirvió esta pagina</p>
+                  <h1 className="text-4xl font-bold text-white mb-2 shadow-text">
+                    Testimonios
+                  </h1>
+                  <p className="text-xl text-white shadow-text">
+                    Hace un año encontré esta pagina, estaba buscando una
+                    vivienda y una compañera porque no estaba en condiciones de
+                    pagar el alquiler yo sola. Ahora que ya las encontré, me
+                    siento muy satisfecha con como me sirvió esta pagina
+                  </p>
                 </motion.div>
 
                 <motion.div
@@ -75,21 +88,35 @@ export default function HomePage() {
                   transition={{ duration: 0.5 }}
                   className="text-center z-10 px-4 w-1/2"
                 >
+                  <h4 className="text-4xl font-bold text-white mb-2 shadow-text">
+                    Sos nuevo en Your Ideal Home o ya contas con un nombre de
+                    usuario?
+                  </h4>
+                  <Link
+                    href="/usuarios/iniciar-sesion"
+                    className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out"
+                  >
+                    Iniciar sesión
+                  </Link>
+                  <p className="text-xl text-white shadow-text">
+                    Si ya contas con un nombre de usuario
+                  </p>
 
-                  <h4 className="text-4xl font-bold text-white mb-2 shadow-text">Sos nuevo en Your Ideal Home o ya contas con un nombre de usuario?</h4>
-                  <button type="submit" className="w-full text-white">Inicia Sesion</button>
-                  <p className="text-xl text-white shadow-text">Si ya contas con un nombre de usuario</p>
-
-                  <button type="submit" className="w-full text-white">Registrarse</button>
-                  <p className="text-xl text-white shadow-text">Si sos nuevo en Your Ideal Home</p>
+                  <Link
+                    href="/usuarios/registrar"
+                    className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out"
+                  >
+                    Registrarse
+                  </Link>
+                  <p className="text-xl text-white shadow-text">
+                    Si sos nuevo en Your Ideal Home
+                  </p>
                 </motion.div>
               </div>
-
             </>
           )}
         </AnimatePresence>
       </div>
     </>
-  )
+  );
 }
-

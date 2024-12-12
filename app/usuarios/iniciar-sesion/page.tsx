@@ -1,170 +1,120 @@
 "use client";
 
 import { useState } from "react";
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
-import { CheckCircle, XCircle, Eye, EyeOff } from "lucide-react";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
-// Simulación de una función de verificación
-const verificarDatos = (datos: {
-  username: string;
-  email: string;
-  phone: string;
-}) => {
-  return new Promise<boolean>((resolve) => {
-    setTimeout(() => {
-      const esValido =
-        datos.email.includes("@") && datos.phone.replace(/\D/g, "").length >= 8;
-      resolve(esValido);
-    }, 1000);
+export default function IniciarSesionPage() {
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
   });
-};
+  const router = useRouter();
 
-export default function DatosPersonales() {
-  const [datos, setDatos] = useState({
-    username: "juanperez",
-    password: "contraseña123",
-    email: "juan@example.com",
-    phone: "123-456-7890",
-  });
-  const [verificado, setVerificado] = useState<boolean | null>(null);
-  const [cargando, setCargando] = useState(false);
-  const [mostrarContraseña, setMostrarContraseña] = useState(false);
-
-  const handleVerificar = async () => {
-    setCargando(true);
-    const esValido = await verificarDatos({
-      username: datos.username,
-      email: datos.email,
-      phone: datos.phone,
-    });
-    setVerificado(esValido);
-    setCargando(false);
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
-  const toggleMostrarContraseña = () => {
-    setMostrarContraseña(!mostrarContraseña);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Aquí iría la lógica para enviar los datos al servidor y autenticar
+    console.log("Datos de inicio de sesión:", formData);
+    // Simulamos un inicio de sesión exitoso
+    alert("Inicio de sesión exitoso!");
+    // Redirigimos al usuario a la página principal
+    router.push("/");
   };
 
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-100 p-4">
-      <Card className="w-full max-w-md">
-        <CardHeader className="space-y-2">
-          <CardTitle className="text-3xl font-bold text-center">
-            Datos Personales
-          </CardTitle>
-          <CardDescription className="text-center text-lg">
-            Información verificable del usuario
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6">
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="username" className="text-lg font-medium">
-                Nombre de Usuario
-              </Label>
-              <Input
-                id="username"
-                value={datos.username}
-                readOnly
-                className="text-lg p-3"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="password" className="text-lg font-medium">
-                Contraseña
-              </Label>
-              <div className="relative">
-                <Input
-                  id="password"
-                  type={mostrarContraseña ? "text" : "password"}
-                  value={datos.password}
-                  readOnly
-                  className="text-lg p-3"
+    <div className="min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
+          Inicia sesión en tu cuenta
+        </h2>
+      </div>
+
+      <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <div>
+              <label
+                htmlFor="email"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Correo electrónico
+              </label>
+              <div className="mt-1">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  autoComplete="email"
+                  required
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  value={formData.email}
+                  onChange={handleChange}
                 />
-                <Button
-                  variant="ghost"
-                  size="icon"
-                  className="absolute right-0 top-0 h-full"
-                  onClick={toggleMostrarContraseña}
-                >
-                  {mostrarContraseña ? (
-                    <EyeOff className="h-6 w-6" />
-                  ) : (
-                    <Eye className="h-6 w-6" />
-                  )}
-                  <span className="sr-only">
-                    {mostrarContraseña
-                      ? "Ocultar contraseña"
-                      : "Mostrar contraseña"}
-                  </span>
-                </Button>
               </div>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="email" className="text-lg font-medium">
-                Correo Electrónico
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                value={datos.email}
-                readOnly
-                className="text-lg p-3"
-              />
+
+            <div>
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-gray-700"
+              >
+                Contraseña
+              </label>
+              <div className="mt-1">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  required
+                  className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm placeholder-gray-400 focus:outline-none focus:ring-blue-500 focus:border-blue-500 sm:text-sm"
+                  value={formData.password}
+                  onChange={handleChange}
+                />
+              </div>
             </div>
-            <div className="space-y-2">
-              <Label htmlFor="phone" className="text-lg font-medium">
-                Teléfono
-              </Label>
-              <Input
-                id="phone"
-                type="tel"
-                value={datos.phone}
-                readOnly
-                className="text-lg p-3"
-              />
+
+            <div>
+              <Link
+                href="/viviendas"
+                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline transition duration-300 ease-in-out"
+              >
+                Iniciar sesión
+              </Link>
+            </div>
+          </form>
+
+          <div className="mt-6">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className="px-2 bg-white text-gray-500">
+                  ¿No tienes una cuenta?
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-6">
+              <Link
+                href="/usuarios/registrar"
+                className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-blue-600 bg-white hover:bg-gray-50"
+              >
+                Regístrate
+              </Link>
             </div>
           </div>
-        </CardContent>
-        <CardFooter className="flex flex-col items-center space-y-4">
-          <Button
-            onClick={handleVerificar}
-            disabled={cargando}
-            className="w-full text-lg py-6"
-          >
-            {cargando ? "Verificando..." : "Verificar Datos"}
-          </Button>
-          {verificado !== null && !cargando && (
-            <div className="flex items-center text-lg">
-              {verificado ? (
-                <>
-                  <CheckCircle className="mr-2 h-6 w-6 text-green-500" />
-                  <span className="text-green-500 font-medium">
-                    Datos verificados
-                  </span>
-                </>
-              ) : (
-                <>
-                  <XCircle className="mr-2 h-6 w-6 text-red-500" />
-                  <span className="text-red-500 font-medium">
-                    Verificación fallida
-                  </span>
-                </>
-              )}
-            </div>
-          )}
-        </CardFooter>
-      </Card>
+        </div>
+      </div>
     </div>
   );
 }

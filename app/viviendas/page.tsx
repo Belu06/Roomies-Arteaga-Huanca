@@ -1,6 +1,6 @@
-
-import db from "@/db"
-import vivendasList from './viviendas-list'
+import db from "@/db";
+import Link from "next/link";
+import vivendasList from "./viviendas-list";
 import { Search } from "lucide-react";
 import ViviendasComponent from '../components/viviendasComponents'
 
