@@ -2,6 +2,7 @@ import { Suspense, useState, useEffect } from 'react'
 import db from "@/db"
 import ViviendaCard from './vivienda-card'
 import { Skeleton } from "@/components/ui/skeleton"
+import { Viviendas } from '@prisma/client'
 
 // Función para obtener viviendas, con filtro de búsqueda
 async function getViviendas(searchTerm: string) {
@@ -25,7 +26,7 @@ async function getViviendas(searchTerm: string) {
 // Componente principal que maneja la lista de viviendas y el estado de búsqueda
 export default function ViviendasList({ searchParams }: { searchParams: { search?: string } }) {
   const [searchTerm, setSearchTerm] = useState(searchParams.search || '') // Estado para almacenar el término de búsqueda
-
+            
   // Actualiza el término de búsqueda cuando el usuario escribe en el campo
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchTerm(e.target.value)
@@ -52,6 +53,7 @@ export default function ViviendasList({ searchParams }: { searchParams: { search
   )
 }
 
+
 // Componente que maneja la carga de viviendas de manera asíncrona y filtrada
 async function AsyncViviendasList({ searchTerm }: { searchTerm: string }) {
   const viviendas = await getViviendas(searchTerm)
@@ -61,7 +63,7 @@ async function AsyncViviendasList({ searchTerm }: { searchTerm: string }) {
   }
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div className ="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {viviendas.map((vivienda) => (
         <ViviendaCard key={vivienda.id} vivienda={vivienda} searchTerm={searchTerm} />
       ))}

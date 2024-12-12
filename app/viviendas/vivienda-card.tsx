@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button"
 
 interface Vivienda {
   id: string
-  imagenes: string 
+  imagenes: string | null 
   descripcion: string
   precioDeAlquiler: number
   direccion: string
@@ -38,7 +38,7 @@ export default function ViviendaCard({ vivienda, searchTerm }: ViviendaCardProps
     <Card className="overflow-hidden">
       <div className="relative h-48">
         <Image
-          src={vivienda.imagenes[0] || '/placeholder.svg?height=192&width=384'}
+          src={vivienda.imagenes? vivienda.imagenes[0] : '/placeholder.svg?height=192&width=384'}
           alt={vivienda.descripcion}
           layout="fill"
           objectFit="cover"
